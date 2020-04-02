@@ -1,0 +1,29 @@
+{% extends "_base.html" %}
+{% load staticfiles %}
+
+{% block extrahead %}
+<link rel="stylesheet" href="{% static 'css/base/home_base.css' %}">
+<link rel="stylesheet" href="{% static 'css/base/button.css' %}">
+<link rel="stylesheet" href="{% static 'css/base/message.css' %}">
+<script src="{% static 'js/jspdf.min.js' %}" charset="utf-8"></script>
+{% endblock %}
+{% block page_title %}Estimates{% endblock %}
+{% block content %}
+
+<h2>Create PDF</h2>
+<button id="generatePDF">Click Me!</button>
+{% endblock %}
+
+{% block javascript %}
+<script>
+  function genPDF() {
+    var doc = new jsPDF();
+    doc.text(20, 20, 'TEST Message');
+    doc.addPage();
+    doc.text(20,20, 'TEST PAGE 2')
+    doc.save('TEST.pdf');
+  }
+
+  $("#generatePDF").on("click", genPDF);
+</script>
+{% endblock %}

@@ -1,0 +1,161 @@
+{% extends "_base.html" %}
+{% load staticfiles %}
+
+{% block extrahead %}
+<link rel="stylesheet" href="{% static 'css/base/home_base.css' %}">
+<link rel="stylesheet" href="{% static 'css/base/button.css' %}">
+<link rel="stylesheet" href="{% static 'css/base/message.css' %}">
+
+{% endblock %}
+{% block page_title %}Categorys{% endblock %}
+{% block content %}
+{% include "_modal.html" %}
+{% if messages %}
+{% for message in messages %}
+<div class="popup-message alert">
+  <h3>{{message}} </h3>
+</div>
+{% endfor %}
+{% endif %}
+<div class="content-container">
+  <div class="content-header">
+    <div class="left-content">
+      <div class="search-wrap">
+        <form action="{% url 'category-search' %}" method="GET" class="search">
+          <input type="text" name="q" class="searchTerm" placeholder="Search...">
+          <button type="submit" class="searchButton">
+            <i class="fa fa-search"></i>
+          </button>
+        </form>
+      </div>
+    </div>
+    <div class="right-content">
+      {% if perms.categorys.add_category %}
+      <div class="button-plain button-category"><a class="create-category" data-id="{% url 'category-create' %}" href="#"><span class="button-icon"><img src="{% static 'images/category.png' %}" alt=""></span>ADD CATEGORY</a></div>
+      {% endif %}
+      {% if perms.categorys.export_category %}
+      <div class="button-plain button-export"><a href="{% url 'category-export' %}"><span class="button-icon"><img src="{% static 'images/excel.png' %}" alt=""></span>EXPORT ALL</a></div>
+      {% endif %}
+    </div>
+  </div>
+
+  {% if categorys %}
+  <div class="data">
+    <table id="myTable">
+      <thead>
+        <tr>
+          <th>Category Name</th>
+          <th>Related Products</th>
+          {% if perms.categorys.change_category or perms.categorys.delete_category%}
+          <th class="action">Action</th>
+          {% endif %}
+        </tr>
+      </thead>
+      <tbody>
+        {% for category in categorys %}
+        <tr>
+          <td class="seemore">
+            <div class="tooltips">
+              <button type="button" class="button-plain read-category" data-id="{% url 'category-read' category.pk %}">
+                {{ category.categoryname }}
+              </button>
+              <div class="top">
+                <p>See more details</p>
+                <i></i>
+              </div>
+            </div>
+          </td>
+          <td>
+            {% for category in category.product_category.all %}
+              {{ category }},
+            {% endfor %}
+          </td>
+          {% if perms.categorys.change_category or perms.categorys.delete_category%}
+          <td class="action">
+            {% if perms.categorys.change_category  %}
+            <button type="button" class="update-category button-plain" data-id="{% url 'category-update' category.pk %}">
+              <img src="{% static 'images/edit.png' %}" alt="">
+            </button>
+            {% endif %}
+            {% if perms.categorys.delete_category %}
+            <button type="button" class="delete-category button-plain" data-id="{% url 'category-delete' category.pk %}">
+              <img src="{% static 'images/delete.png' %}" alt="">
+            </button>
+            {% endif %}
+          </td>
+          {% endif %}
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% else %}
+  <h1>No category added yet.</h1>
+  {% endif %}
+</div>
+<div class="pagination">.
+  <div class="pagination-content">
+    {% if is_paginated %}
+    {% if page_obj.has_previous %}
+    <a class="button-page" href="?page=1">First</a>
+    <a class="button-page" href="?page={{ page_obj.previous_page_number }}">&#171</a>
+    {% endif %}
+
+    {% for num in page_obj.paginator.page_range %}
+    {% if page_obj.number == num %}
+    <a class="button-page-current" href="?page={{ num }}">{{ num }}</a>
+    {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+    <a class="button-page" href="?page={{ num }}">{{ num }}</a>
+    {% endif %}
+    {% endfor %}
+
+    {% if page_obj.has_next %}
+    <a class="button-page" href="?page={{ page_obj.next_page_number }}">&#187</a>
+    <a class="button-page" href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+    {% endif %}
+    {% endif %}
+  </div>
+</div>
+{% endblock %}
+
+{% block javascript %}
+
+<script type="text/javascript">
+  $(function() {
+
+    // Read category buttons
+    $(".read-category").each(function() {
+      $(this).modalForm({
+        formURL: $(this).data('id')
+      });
+    });
+
+    // Delete category buttons
+    $(".delete-category").each(function() {
+      $(this).modalForm({
+        formURL: $(this).data('id')
+      });
+    })
+
+    // Delete category buttons
+    $(".update-category").each(function() {
+      $(this).modalForm({
+        formURL: $(this).data('id')
+      });
+    })
+
+    $(".create-category").each(function() {
+      $(this).modalForm({
+        formURL: $(this).data('id')
+      });
+    })
+
+    // Hide message
+    $(".alert").fadeTo(2000, 500).slideUp(500, function() {
+      $(".alert").slideUp(500);
+    });
+
+  });
+</script>
+
+{% endblock %}

@@ -1,0 +1,24 @@
+{% load widget_tweaks %}
+{% load crispy_forms_tags %}
+{% load staticfiles %}
+
+<form method="post" action="">
+  {% csrf_token %}
+
+  <div class="modal-header">
+    <h3 class="modal-title">Delete Category</h3>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+  <div class="modal-body">
+    <p class="delete-text">Are you sure you want to delete the category?
+      "<strong>{{ category.categoryname }}</strong>"?</p>
+  </div>
+
+  <div class="modal-footer">
+    <button type="submit" class="button button-delete"><span>Confirm Delete</span></button>
+  </div>
+
+</form>

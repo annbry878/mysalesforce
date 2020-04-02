@@ -1,0 +1,25 @@
+{% extends "_base.html" %}
+{% load staticfiles %}
+
+{% block extrahead %}
+<link rel="stylesheet" href="{% static 'css/apps/apps_create_update.css' %}">
+{% endblock %}
+
+{% block page_title %}<a href="{% url 'estimate-home' %}">Estimates</a> > Delete Estimate{% endblock %}
+
+{% block content %}
+
+<div class="content-container">
+  <form action="" method="POST">{%csrf_token%}
+    <h3>Delete the following Estimate?</h3>
+    <ul>
+    {% for cust in delEstimates %}
+      <li class=" mt-2"><span class="mr-2">&cross;</span>{{ cust }}</li>
+    {% endfor %}
+    </ul>
+    <button type="submit" name="button" class="button button-delete"><span>Confirm Delete</span></button>
+    <a class="ml-3" href="{% url 'estimate-home' %}">No, Cancel</a>
+  </form>
+</div>
+
+{% endblock %}

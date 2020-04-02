@@ -1,0 +1,123 @@
+html {
+  font-size: 16px;
+}
+
+body {
+  background-color: #ebebeb;
+}
+
+.content-container {
+  height: 100vh;
+  width: 800px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  color: black;
+  font-family: 'Nunito', sans-serif;
+}
+
+.login-container {
+  width: 800px;
+  height: 650px;
+  margin: auto 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 4px 4px 3px rgba(0, 0, 0, 0.1);
+}
+
+.logo-image {
+	text-align: center;
+}
+
+.background-image {
+  width: 400px;
+  height: 650px;
+  background-image: url("/static/images/bg.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  color: white;
+  display: flex;
+	text-align: center;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 50px 10px;
+  box-sizing: border-box;
+}
+
+.background-image h2 {
+  font-size: 1.6rem;
+  font-weight: bold;
+}
+
+.login-box {
+  background-color: white;
+  padding: 20px;
+  box-sizing: border-box;
+  width: 400px;
+  height: 650px;
+}
+
+img {
+  margin-bottom: 30px;
+}
+
+legend{
+	border-bottom: 1px solid rgba(150,150,150,0.5);
+}
+
+fieldset{
+	margin-top: 20px;
+}
+
+div.popup-message {
+  background-color: #61dfa0;
+  color: #2e9961;
+  text-align: center;
+  padding: 10px 0;
+}
+
+div.popup-message h3 {
+  text-align: center;
+	font-size: 1.1rem;
+}
+
+
+.login-forgot{
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+.login-forgot a{
+	color: black;
+}
+.bottom-section{
+	border-top: 1px solid rgba(150,150,150,0.5);
+	padding-top: 10px;
+  margin-top: 10px;
+	color:rgba(0, 0, 0, 0.5);
+}
+.bottom-section a{
+color:rgba(0, 0, 0, 1);
+}
+
+
+p.contact_us{
+	border-top: 1px solid rgba(150,150,150,0.5);
+	margin-top: 10px;
+}
+
+@media (max-width: 768px) {
+  .background-image {
+    display: none;
+  }
+
+  .content-container {
+    justify-content: center;
+    width: 100%;
+  }
+
+  .login-content-container {
+    width: 400px;
+  }
+}

@@ -1,0 +1,22 @@
+{% extends "_base.html" %}
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+
+{% block extrahead %}
+<link rel="stylesheet" href="{% static 'css/apps/apps_create_update.css' %}">
+<link rel="stylesheet" href="{% static 'css/base/button.css' %}">
+<link rel="stylesheet" href="{% static 'css/base/message.css' %}">
+{% endblock %}
+
+{% block page_title %}<a href="{% url 'distributor-home' %}">Distributors</a> > Add Distributor{% endblock %}
+{% block content %}
+<div class="content-container">
+    <form action="" method="POST">{% csrf_token %}
+      {{ form | crispy }}
+      <button type="submit" name="button" class="button"><span>Submit</span></button>
+    </form>
+</div>
+{% endblock %}
+{% block javascript %}
+<script type="text/javascript" src="{% static 'js/apps/limit_characters.js' %}"></script>
+{% endblock %}

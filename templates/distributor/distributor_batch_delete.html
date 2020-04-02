@@ -1,0 +1,25 @@
+{% extends "_base.html" %}
+{% load staticfiles %}
+
+{% block extrahead %}
+<link rel="stylesheet" href="{% static 'css/apps/apps_create_update.css' %}">
+{% endblock %}
+
+{% block page_title %}<a href="{% url 'distributor-home' %}">Distributors</a> > Delete Distributor{% endblock %}
+
+{% block content %}
+
+<div class="content-container">
+  <form action="" method="POST">{%csrf_token%}
+    <h3>Delete the following Distributor?</h3>
+    <ul>
+    {% for cust in delDistributors %}
+      <li class=" mt-2"><span class="mr-2">&cross;</span>{{ cust }}</li>
+    {% endfor %}
+    </ul>
+    <button type="submit" name="button" class="button button-delete"><span>Confirm Delete</span></button>
+    <a class="ml-3" href="{% url 'distributor-home' %}">No, Cancel</a>
+  </form>
+</div>
+
+{% endblock %}

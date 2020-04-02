@@ -1,0 +1,13 @@
+{% extends "estimate/create_estimate.html" %}
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+
+
+{% block page_title %}<a href="{% url 'product-home' %}">Products</a> > Update Product{% endblock %}
+{% block estimateNum %}{{estimateform.estimateNumber}}{% endblock %}
+{% block status %}
+<div class="input-data">
+  <label for="">Status</label>
+  {{estimateform.status | as_crispy_field }}
+</div>
+{% endblock %}
